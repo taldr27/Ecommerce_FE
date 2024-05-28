@@ -1,19 +1,19 @@
 import { useContext, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/cartContext";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import Badge from "@mui/material/Badge";
 import { AuthContext } from "../context/authContext";
 
 export default function Navbar() {
-  const { totalcart } = useContext(CartContext);
+  const { cart, totalcart } = useContext(CartContext);
   const { user, setUser } = useContext(AuthContext);
-
-  console.log(user, "navbar login");
+  const navigate = useNavigate();
 
   const closeSession = (setUser) => {
     localStorage.removeItem("accessToken");
     setUser(null);
+    navigate("/");
   };
 
   return (
@@ -54,10 +54,24 @@ export default function Navbar() {
                   >
                     Productos
                   </Link>
+                  <Link
+                    to="/mis-compras"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white','rounded-md px-3 py-2 text-sm font-medium"
+                  >
+                    Mis compras
+                  </Link>
                 </div>
               </div>
               {user?.is_admin ? (
-                <span className="text-white">Eres admin!</span>
+                <>
+                  <Link
+                    to="/ventas"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white','rounded-md px-3 py-2 text-sm font-medium"
+                  >
+                    Ver todas las ventas
+                  </Link>{" "}
+                  <span className="text-gray-300">Eres admin!</span>
+                </>
               ) : null}
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {!user ? (
@@ -82,7 +96,7 @@ export default function Navbar() {
                     to="/checkout"
                     className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
-                    <Badge badgeContent={totalcart} color="primary">
+                    <Badge badgeContent={cart.length} color="primary">
                       <i className="fa-solid fa-cart-shopping text-2xl text-gray-300 me-1"></i>
                     </Badge>
                   </Link>

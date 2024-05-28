@@ -46,22 +46,14 @@ export default function Login() {
       const response = await startLogin();
       const { access } = response.data;
       localStorage.setItem("accessToken", access);
-      const userResponse = await axios.get("http://127.0.0.1:8000/api/user/check-auth/", {
-        headers: {
-          Authorization: `Bearer ${access}`
-        }
-      });
-      setUser(userResponse.data);
-      console.log("Login successful");
-      toast.success('Login exitoso 👍');
-      navigate('/products');
+      setUser(response.data.user);
+      toast.success("Login exitoso 👍");
+      navigate("/products");
     } catch (error) {
       console.log("Error", error);
-      toast.error('Error al ingresar en cuenta del usuario 🤯');
+      toast.error("Error al ingresar en cuenta del usuario 🤯");
     }
   };
-  
-  
 
   return (
     <div className="bg-blue-100 min-h-screen">

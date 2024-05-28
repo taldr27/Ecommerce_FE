@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import Container from "../components/Container";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
 export default function Register() {
@@ -17,14 +17,17 @@ export default function Register() {
 
   const startRegister = async () => {
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/user/register", {
-        email,
-        password,
-        name,
-        document_type: documentType,
-        document_number: documentNumber,
-        is_admin: isAdmin
-      });
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/user/register",
+        {
+          email,
+          password,
+          name,
+          document_type: documentType,
+          document_number: documentNumber,
+          is_admin: isAdmin,
+        }
+      );
       console.log("Response", response);
       return response;
     } catch (error) {
@@ -40,11 +43,11 @@ export default function Register() {
       localStorage.setItem("accessToken", access);
       setUser(response.data.user);
       console.log(response.data, "dataaaaaaaaa");
-      toast.success('Registro exitoso 👍');
+      toast.success("Registro exitoso 👍");
       navigate("/");
     } catch (error) {
       console.log("Error", error);
-      toast.error('Error en el registro del usuario 🤯');
+      toast.error("Error en el registro del usuario 🤯");
     }
   };
 
@@ -71,7 +74,10 @@ export default function Register() {
               />
             </div>
             <div className="relative mb-2">
-              <label htmlFor="email" className="leading-7 text-sm text-gray-700">
+              <label
+                htmlFor="email"
+                className="leading-7 text-sm text-gray-700"
+              >
                 Correo electrónico:
               </label>
               <input
@@ -85,7 +91,10 @@ export default function Register() {
               />
             </div>
             <div className="relative mb-2">
-              <label htmlFor="password" className="leading-7 text-sm text-gray-600">
+              <label
+                htmlFor="password"
+                className="leading-7 text-sm text-gray-600"
+              >
                 Contraseña
               </label>
               <input
@@ -99,7 +108,10 @@ export default function Register() {
               />
             </div>
             <div className="relative mb-2">
-              <label htmlFor="documentType" className="leading-7 text-sm text-gray-700">
+              <label
+                htmlFor="documentType"
+                className="leading-7 text-sm text-gray-700"
+              >
                 Tipo de Documento:
               </label>
               <input
@@ -113,7 +125,10 @@ export default function Register() {
               />
             </div>
             <div className="relative mb-2">
-              <label htmlFor="documentNumber" className="leading-7 text-sm text-gray-700">
+              <label
+                htmlFor="documentNumber"
+                className="leading-7 text-sm text-gray-700"
+              >
                 Número de Documento:
               </label>
               <input
@@ -127,7 +142,10 @@ export default function Register() {
               />
             </div>
             <div className="relative mb-2">
-              <label htmlFor="isAdmin" className="leading-7 text-sm text-gray-700">
+              <label
+                htmlFor="isAdmin"
+                className="leading-7 text-sm text-gray-700"
+              >
                 ¿Es administrador?
               </label>
               <input
@@ -154,10 +172,14 @@ export default function Register() {
               ¡Únete a nosotros hoy mismo!
             </h2>
             <p className="leading-relaxed mb-3">
-              Regístrate para obtener una cuenta y disfruta de todos nuestros servicios y beneficios exclusivos.
+              Regístrate para obtener una cuenta y disfruta de todos nuestros
+              servicios y beneficios exclusivos.
             </p>
             <p className="text-xs">
-              ¿Ya tienes una cuenta? <a href="/login" className="text-blue-500">Inicia sesión aquí</a>
+              ¿Ya tienes una cuenta?{" "}
+              <a href="/login" className="text-blue-500">
+                Inicia sesión aquí
+              </a>
             </p>
           </div>
         </div>

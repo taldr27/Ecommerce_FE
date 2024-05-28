@@ -9,6 +9,8 @@ import Register from './views/Register';
 import Login from './views/Login';
 import { AuthContextProvider } from './context/authContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import MisCompras from './views/MisCompras';
+import Ventas from './views/Ventas';
 
 
 export default function App(){
@@ -25,6 +27,8 @@ export default function App(){
         <ProtectedRoute><CheckOut/></ProtectedRoute>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/mis-compras' element={<MisCompras/>}/>
+        <Route path='/ventas' element={<Ventas/>}/>
       </Routes>
       </CartContextProvider>
       </AuthContextProvider>
