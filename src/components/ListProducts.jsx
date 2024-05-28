@@ -11,10 +11,8 @@ export default function ListProducts({ products, removeProduct }) {
     0
   );
 
-  const user = useContext(AuthContext).user;
-  const userId = user.id;
-
-  console.log(userId, "userId listproducts");
+  const user = useContext(AuthContext);
+  const userId = user.user.id;
 
   const handleRemoveProduct = (productId) => {
     removeProduct(productId);

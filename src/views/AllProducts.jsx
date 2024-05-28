@@ -21,7 +21,7 @@ export default function AllProducts() {
   const { user } = useContext(AuthContext);
   const [currentUser, setCurrentUser] = useState(user);
 
-  console.log(user, currentUser, "asdasd91200")
+  console.log(user, currentUser, "asdasd91200");
 
   useEffect(() => {
     setCurrentUser(user);
@@ -131,12 +131,6 @@ export default function AllProducts() {
               </button>
             </>
           )}
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-            onClick={() => setShowFilters(!showFilters)}
-          >
-            {showFilters ? "Ocultar filtros" : "Mostrar filtros"}
-          </button>
           {/* user?.is_admin */}
           {currentUser?.is_admin && (
             <>

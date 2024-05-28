@@ -68,7 +68,11 @@ export default function ProductDetail() {
               </span>
               <span className="text-gray-600">
                 Categoria:{" "}
-                <b className="font font-semibold text-black">{data.category}</b>
+                <b className="font font-semibold text-black">
+                  {data?.category?.map((category) => (
+                    <span key={category.name}>{category}{" "}</span>
+                  ))}
+                </b>
               </span>
             </div>
             <h3 className="font-semibold text-dark">Descripcion:</h3>
