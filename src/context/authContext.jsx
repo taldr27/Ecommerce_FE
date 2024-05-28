@@ -1,25 +1,45 @@
 import { createContext, useState, useEffect } from "react";
-import { auth } from "../config/firebaseConfig";
-import { onAuthStateChanged } from "firebase/auth";
-
+import axios from "axios";
 
 const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
+  const [accessToken, setAccessToken] = useState(null);
   const [user, setUser] = useState(null);
+  console.log(user, "user in auth context");
 
   useEffect(() => {
-    onAuthStateChanged(auth, (userInfo) => {
-      if(userInfo){
-        console.log({ userInfo });
-        setUser(userInfo);
-      }else{
+    const checkAuthState = async () => {
+      try {
+        const storedAccessToken = localStorage.getItem("accessToken");
+        if (storedAccessToken) {
+          setAccessToken(storedAccessToken);
+          const response = await axios.get("http://127.0.0.1:8000/api/user/check-auth/", {
+            headers: {
+              Authorization: `Bearer ${storedAccessToken}`
+            }
+          });
+          setUser(response.data.user);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
         setUser(null);
       }
-    });
+    };
+
+    checkAuthState();
   }, []);
 
-  return (<AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>);
+  const updateUser = (userData) => {
+    setUser(userData);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, accessToken, setUser: updateUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export { AuthContext, AuthContextProvider };

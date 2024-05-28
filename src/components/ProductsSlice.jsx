@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import useData from "../hooks/useAxios";
 import { Link, useLocation  } from "react-router-dom"
 import ProductCard from "./ProductCard";
@@ -5,6 +6,7 @@ import ProductCard from "./ProductCard";
 export default function ProductsSlice({data, colums = 4, showMoreLink = true}) {
 
   const location = useLocation();
+  console.log(data);
  // console.log("variable entorno", import.meta.env.VITE_ENDPOINT_BASE)
   /*const {data, error, isLoading} = useData (`${import.meta.env.VITE_ENDPOINT_BASE}/productos`);
   if(isLoading){

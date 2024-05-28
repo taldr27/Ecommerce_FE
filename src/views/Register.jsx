@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Container from "../components/Container";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../context/authContext";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -10,6 +12,8 @@ export default function Register() {
   const [documentType, setDocumentType] = useState("");
   const [documentNumber, setDocumentNumber] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
 
   const startRegister = async () => {
     try {
@@ -21,19 +25,27 @@ export default function Register() {
         document_number: documentNumber,
         is_admin: isAdmin
       });
-      console.log(response.data);
+      console.log("Response", response);
+      return response;
     } catch (error) {
       console.log("Error", error);
       throw error;
     }
   };
 
-  const handleRegister = () => {
-    toast.promise(startRegister(), {
-      pending: 'Registro en progreso...',
-      success: 'Registro exitoso 👍',
-      error: 'Error en el registro del usuario 🤯'
-    });
+  const handleRegister = async () => {
+    try {
+      const response = await startRegister();
+      const { access } = response.data;
+      localStorage.setItem("accessToken", access);
+      setUser(response.data.user);
+      console.log(response.data, "dataaaaaaaaa");
+      toast.success('Registro exitoso 👍');
+      navigate("/");
+    } catch (error) {
+      console.log("Error", error);
+      toast.error('Error en el registro del usuario 🤯');
+    }
   };
 
   return (
