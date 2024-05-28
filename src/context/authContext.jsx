@@ -6,7 +6,6 @@ const AuthContext = createContext();
 const AuthContextProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
   const [user, setUser] = useState(null);
-  console.log(user, "user in auth context");
 
   useEffect(() => {
     const checkAuthState = async () => {
@@ -19,7 +18,7 @@ const AuthContextProvider = ({ children }) => {
               Authorization: `Bearer ${storedAccessToken}`
             }
           });
-          setUser(response.data.user);
+          setUser(response.data);
         } else {
           setUser(null);
         }

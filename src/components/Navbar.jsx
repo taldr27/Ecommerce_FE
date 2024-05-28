@@ -1,4 +1,4 @@
-import { useContext, Fragment, useState, useEffect } from "react";
+import { useContext, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/cartContext";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
@@ -7,16 +7,9 @@ import { AuthContext } from "../context/authContext";
 
 export default function Navbar() {
   const { totalcart } = useContext(CartContext);
-  const { user } = useContext(AuthContext);
-  const [currentUser, setCurrentUser] = useState(user);
+  const { user, setUser } = useContext(AuthContext);
 
-  const { setUser } = useContext(AuthContext);
-
-  useEffect(() => {
-    setCurrentUser(user);
-  }, [user]);
-
-  console.log(currentUser, "user in navbar");
+  console.log(user, "navbar login");
 
   const closeSession = (setUser) => {
     localStorage.removeItem("accessToken");
