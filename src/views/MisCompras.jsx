@@ -8,7 +8,7 @@ const MisCompras = () => {
   const fetchSales = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/sales/user/${user.id}`
+        `${import.meta.env.VITE_ENDPOINT_BASE}/sales/user/${user.id}`
       );
       const data = await response.json();
       setSales(data);

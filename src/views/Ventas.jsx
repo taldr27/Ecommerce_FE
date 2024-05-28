@@ -5,7 +5,7 @@ const Ventas = () => {
 
   const fetchSales = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/sales/all");
+      const response = await fetch(`${import.meta.env.VITE_ENDPOINT_BASE}/sales/all`);
       const data = await response.json();
       setSales(data);
     } catch (error) {

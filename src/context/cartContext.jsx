@@ -61,7 +61,7 @@ const CartContextProvider = (props) => {
       user_id: userId,
     };
 
-    return fetch("http://localhost:8000/api/sales/create", {
+    return fetch(`${import.meta.env.VITE_ENDPOINT_BASE}/sales/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
