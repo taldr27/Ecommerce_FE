@@ -60,25 +60,25 @@ export default function ProductDetail() {
                 <b className="font font-semibold text-black">######{data.id}</b>
               </span>
               <span className="text-gray-600">
-                Disponibilidad:{" "}
-                <b className="font font-semibold text-green-500">Disponible</b>
+                Availability:{" "}
+                <b className="font font-semibold text-green-500">Available</b>
               </span>
               <span className="text-gray-600">
-                Marca: <b className="font font-semibold text-black">Estandar</b>
+                Brand: <b className="font font-semibold text-black">Standar</b>
               </span>
               <span className="text-gray-600">
-                Categoria:{" "}
+                Category:{" "}
                 <b className="font font-semibold text-black">
                   {data?.category?.map((category) => (
-                    <span key={category.name}>{category}{" "}</span>
+                    <span key={category.name}>{category} </span>
                   ))}
                 </b>
               </span>
             </div>
-            <h3 className="font-semibold text-dark">Descripcion:</h3>
+            <h3 className="font-semibold text-dark">Description:</h3>
             <p className="text-black-600 mb-2">{data.descripcion}</p>
             <p className="text-blue-600 text-xl mb-2">
-              Precio: S/ {data.price}
+              Price: S/ {data.price}
             </p>
             <p className="text-gray-500 text-lg mb-2">Stock: {data.stock}</p>
             <h3 className="font-semibold text-dark mb-2">Color:</h3>

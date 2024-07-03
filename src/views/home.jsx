@@ -23,7 +23,8 @@ export default function Home() {
           className="relative"
           style={{
             backgroundImage: `url('https://img.freepik.com/vector-premium/interior-moderno-boutique-centro-comercial-centro-comercial-ropa_198278-1189.jpg')`,
-            backgroundSize: "cover",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
             opacity: 0.5,
             zIndex: -1,
             position: "fixed",

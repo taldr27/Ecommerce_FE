@@ -52,7 +52,6 @@ export default function AllProducts() {
       .map(([category]) => category);
 
     if (categoriesSelected.length === 0) {
-      // Si no hay categorías seleccionadas, mostrar todos los productos
       setProducts(data);
     } else {
       const filteredData = filterDataByCategories(data, categoriesSelected);
@@ -90,16 +89,16 @@ export default function AllProducts() {
           height: "100%",
         }}
       ></div>
-      <h1 className="text-3xl font-bold pb-3">Todos los Productos</h1>
+      <h1 className="text-3xl font-bold pb-3">All Products</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-12">
         <div className="col-span-12 md:col-span-3">
           <h3 className="text-lg font-semibold border-b-2 border-blue-500 mt-4">
-            Filtros:
+            Filters:
           </h3>
           {showFilters && (
             <>
-              <h4 className="text-md font-semibold border-b-2 mt-3">Precio:</h4>
+              <h4 className="text-md font-semibold border-b-2 mt-3">Price:</h4>
               <Slider
                 getAriaLabel={() => "Precio"}
                 value={price}
@@ -138,7 +137,7 @@ export default function AllProducts() {
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
                 onClick={toggleModal}
               >
-                Agregar producto
+                Add Product
               </button>
               <AddProductModal
                 isOpen={showModal}
