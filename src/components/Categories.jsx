@@ -10,7 +10,7 @@ export default function Categories() {
             <Link to="/products">
               <div className="block relative h-48 rounded overflow-hidden">
                 <img
-                  alt="Man"
+                  alt="Men"
                   className="object-cover object-center w-full h-full block"
                   src="https://images.unsplash.com/photo-1594759845217-e9c99af2b6a4?q=80&w=1902&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 />
@@ -20,7 +20,7 @@ export default function Categories() {
               <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
                 CATEGORY
               </h3>
-              <h2 className="text-dark title-font text-lg font-medium">Man</h2>
+              <h2 className="text-dark title-font text-lg font-medium">Men</h2>
             </div>
           </div>
           <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
@@ -38,7 +38,7 @@ export default function Categories() {
                 CATEGORY
               </h3>
               <h2 className="text-dark title-font text-lg font-medium">
-                Woman
+                Women
               </h2>
             </div>
           </div>
@@ -46,7 +46,7 @@ export default function Categories() {
             <Link to="/products">
               <div className="block relative h-48 rounded overflow-hidden">
                 <img
-                  alt="Accesorios"
+                  alt="Accessories"
                   className="object-cover object-center w-full h-full block"
                   src="https://plus.unsplash.com/premium_photo-1679439492719-d834747e5c7f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8d29tYW4lMjBtb2RlbHxlbnwwfHwwfHx8MA%3D%3D"
                 />

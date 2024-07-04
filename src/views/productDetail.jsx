@@ -16,7 +16,7 @@ export default function ProductDetail() {
 
   const { addProductToCart } = useContext(CartContext);
 
-  const notify = () => toast(`${data.name} agregado al carrito 🛍️`);
+  const notify = () => toast(`${data.name} added to the cart 🛍️`);
 
   const handleAddProductToCart = (product) => {
     addProductToCart(product);
@@ -53,10 +53,9 @@ export default function ProductDetail() {
               </span>
               <span className="text-gray-600">
                 Availability:{" "}
-                <b className="font-semibold text-green-500">Available</b>
-              </span>
-              <span className="text-gray-600">
-                Brand: <b className="font-semibold text-black">Standar</b>
+                <b className="font-semibold text-green-500">
+                  {data.stock > 0 ? "Available" : "Not available"}
+                </b>
               </span>
               <span className="text-gray-600">
                 Category:{" "}
@@ -70,12 +69,12 @@ export default function ProductDetail() {
             <h3 className="font-semibold text-lg text-dark mb-2">
               Description:
             </h3>
-            <p className="text-black-600 mb-4">{data.descripcion}</p>
-            <p className="text-blue-600 text-xl mb-4">Price: S/ {data.price}</p>
+            <p className="text-black-600 mb-4">{data.description}</p>
+            <p className="text-blue-600 text-xl mb-4">Price: ${data.price}</p>
             <p className="text-gray-500 text-lg mb-4">Stock: {data.stock}</p>
             <h3 className="font-semibold text-lg text-dark mb-2">Color:</h3>
             {data?.color?.length > 0 ? (
-              <div className="flex space-x-2 mb-4">
+              <div className="flex space-x-2 mb-4 bg-gray-100 max-w-min">
                 {data.color.map((color, i) => (
                   <button
                     type="button"
@@ -91,7 +90,7 @@ export default function ProductDetail() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 mb-4">No hay colores disponibles</p>
+              <p className="text-gray-500 mb-4">No colors available</p>
             )}
             <button
               className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-300"
@@ -102,7 +101,7 @@ export default function ProductDetail() {
                 })
               }
             >
-              Agregar al carro de compras
+              Add to shopping cart
             </button>
           </div>
         </div>

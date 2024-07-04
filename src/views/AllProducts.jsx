@@ -11,12 +11,12 @@ export default function AllProducts() {
   const [price, setPrice] = useState([1, 10000]);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState({
-    Hombre: false,
-    Mujer: false,
-    Accesorios: false,
-    Deporte: false,
+    Men: false,
+    Women: false,
+    Accessories: false,
+    Sports: false,
   });
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const { user } = useContext(AuthContext);
   const [currentUser, setCurrentUser] = useState(user);
@@ -93,19 +93,19 @@ export default function AllProducts() {
             <div className="bg-white p-4 rounded-lg shadow">
               {showFilters && (
                 <>
-                  <h3 className="text-lg font-semibold border-b-2 border-blue-500 mt-4">
+                  <h3 className="text-lg font-semibold mt-4">
                     Filters:
                   </h3>
-                  <h4 className="text-md font-semibold border-b-2 mt-3">
-                    Price:
+                  <h4 className="text-md font-semibold mt-3">
+                    Price Range:
                   </h4>
                   <Slider
-                    getAriaLabel={() => "Precio"}
+                    getAriaLabel={() => "Price range"}
                     value={price}
                     onChange={handlePrice}
                     valueLabelDisplay="auto"
                     min={1}
-                    max={150}
+                    max={250}
                   />
                   <h4 className="text-lg font-semibold mt-3">Categories:</h4>
                   {Object.keys(categories).map((category) => (
