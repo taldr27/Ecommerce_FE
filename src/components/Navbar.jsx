@@ -22,10 +22,10 @@ export default function Navbar() {
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div className="relative flex h-24 items-center justify-between">
+            <div className="relative flex h-20 items-center justify-between">
               <div className="">
                 <div className="flex-shrink-0 items-center text-white">
-                  <h2 className="text-slate-700 font-kunstler text-2xl sm:text-5xl tracking-tight text-center text-white">
+                  <h2 className="font-kunstler text-2xl sm:text-5xl tracking-tight text-center text-white">
                     All-Fashion Market
                   </h2>
                 </div>

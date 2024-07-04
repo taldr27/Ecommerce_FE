@@ -5,6 +5,7 @@ import useData from "../hooks/useAxios";
 import Container from "../components/Container";
 import ReactImageMagnifier from "simple-image-magnifier/react";
 import { ToastContainer, toast } from "react-toastify";
+import ProductImageZoom from "../components/ProductImageZoom";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -24,18 +25,18 @@ export default function ProductDetail() {
   };
 
   if (loading) {
-    return <p>Cargando...</p>;
+    return <p className="text-center mt-4">Cargando...</p>;
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p className="text-center mt-4 text-red-500">Error: {error}</p>;
   }
 
   return (
     <Container>
-      <div className="relative">
+      <div className="relative bg-gray-100 rounded-lg shadow-lg p-6">
         <div
-          className="absolute top-0 left-0 w-full h-full"
+          className="absolute top-0 left-0 w-full h-full rounded-lg"
           style={{
             backgroundImage: `url(${data.imagen})`,
             backgroundSize: "cover",
@@ -43,69 +44,58 @@ export default function ProductDetail() {
             zIndex: -1,
           }}
         />
-        <div className="w-75 mx-auto py-6 grid grid-cols-1 md:grid-cols-2">
-          <img src={data.image} alt={data.name} className="w-full" />
-          {/* <ReactImageMagnifier
-              srcPreview={data.imagen}
-              srcOriginal={data.imagen}
-              width={500}
-              //height={600}
-              className="max-w-xs bg-gray-200 rounded-lg md:max-w-none max-h-80 md:max-h-none mx-auto"
-            /> */}
-          <div className="p-5">
-            <h2 className="text-2x1 font-semibold mb-2">{data.name}</h2>
-            <div className="grid grid-cols-2 ">
+        <div className="w-75 mx-auto py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <ProductImageZoom image={data.image} />
+          <div className="p-5 bg-white rounded-lg shadow-md">
+            <h2 className="text-3xl font-semibold mb-4">{data.name}</h2>
+            <div className="grid grid-cols-2 gap-4 mb-4">
               <span className="text-gray-600">
-                SKU:{" "}
-                <b className="font font-semibold text-black">######{data.id}</b>
+                SKU: <b className="font-semibold text-black">###{data.id}</b>
               </span>
               <span className="text-gray-600">
                 Availability:{" "}
-                <b className="font font-semibold text-green-500">Available</b>
+                <b className="font-semibold text-green-500">Available</b>
               </span>
               <span className="text-gray-600">
-                Brand: <b className="font font-semibold text-black">Standar</b>
+                Brand: <b className="font-semibold text-black">Standar</b>
               </span>
               <span className="text-gray-600">
                 Category:{" "}
-                <b className="font font-semibold text-black">
-                  {data?.category?.map((category) => (
-                    <span key={category.name}>{category} </span>
+                <b className="font-semibold text-black">
+                  {data?.category?.map((category, id) => (
+                    <span key={id}>{category} </span>
                   ))}
                 </b>
               </span>
             </div>
-            <h3 className="font-semibold text-dark">Description:</h3>
-            <p className="text-black-600 mb-2">{data.descripcion}</p>
-            <p className="text-blue-600 text-xl mb-2">
-              Price: S/ {data.price}
-            </p>
-            <p className="text-gray-500 text-lg mb-2">Stock: {data.stock}</p>
-            <h3 className="font-semibold text-dark mb-2">Color:</h3>
-
+            <h3 className="font-semibold text-lg text-dark mb-2">
+              Description:
+            </h3>
+            <p className="text-black-600 mb-4">{data.descripcion}</p>
+            <p className="text-blue-600 text-xl mb-4">Price: S/ {data.price}</p>
+            <p className="text-gray-500 text-lg mb-4">Stock: {data.stock}</p>
+            <h3 className="font-semibold text-lg text-dark mb-2">Color:</h3>
             {data?.color?.length > 0 ? (
-              data.color.map((color, i) => (
-                <button
-                  type="button"
-                  key={color}
-                  className="inline-block w-5 h-5 mr-2 rounded-full p-1"
-                  style={{
-                    background: color,
-                    border: "1px solid lightgray",
-                    ...(colorSelected === i
-                      ? { outline: "4px solid gray" }
-                      : { border: "" }),
-                  }}
-                  onClick={() => setColorSelected(i)}
-                ></button>
-              ))
+              <div className="flex space-x-2 mb-4">
+                {data.color.map((color, i) => (
+                  <button
+                    type="button"
+                    key={i}
+                    className={`w-8 h-8 rounded-full border-2 ${
+                      colorSelected === i
+                        ? "border-gray-600"
+                        : "border-gray-300"
+                    }`}
+                    style={{ background: color }}
+                    onClick={() => setColorSelected(i)}
+                  ></button>
+                ))}
+              </div>
             ) : (
-              <p className="text-gray-500">No hay colores disponibles</p>
+              <p className="text-gray-500 mb-4">No hay colores disponibles</p>
             )}
-
-            <br />
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-300"
               onClick={() =>
                 handleAddProductToCart({
                   ...data,

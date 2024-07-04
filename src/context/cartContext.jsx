@@ -6,14 +6,12 @@ const CartContext = createContext();
 const CartContextProvider = (props) => {
   const [cart, setCart] = useState([]);
 
-  console.log(cart, "cart");
-
   const removeFromCart = (productId) => {
     setCart(cart.filter((item) => item.id !== productId));
   };
 
   const clearCart = () => {
-    setCart([]); // Reinicia el estado del carrito a un array vacío
+    setCart([]);
     removeStorage("cart");
   };
 

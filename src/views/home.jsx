@@ -8,13 +8,10 @@ import Carousel from "../components/Carousel";
 import Footer from "../components/Footer";
 
 export default function Home() {
-  const shared = useContext(CartContext);
-  console.log(shared);
-
   const { data, error, isLoading } = useData(
     `http://127.0.0.1:8000/api/products/all`
   );
-  if (isLoading) return <p>Cargando...</p>;
+  if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   return (
     <>

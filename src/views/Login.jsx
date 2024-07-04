@@ -12,14 +12,13 @@ export default function Login() {
   const { user, setUser } = useContext(AuthContext);
 
   const ERRORS = {
-    "user-not-found": "Usuario no encontrado, verifique sus datos por favor",
-    "wrong-password": "La contraseña incorrecta, verifiquela por favor",
-    "invalid-email":
-      "El correo indicado es inválido, verifique sus datos por favor",
-    "missing-password": "La contraseña esta vacia, indiquela por favor",
-    "invalid-credential":
-      "Credenciales inválidas, verifique sus datos por favor",
-    "network-request-failed": "Error de red, verifique su conexión a internet",
+    "user-not-found": "User not found, please check your details",
+    "wrong-password": "Incorrect password, please check it",
+    "invalid-email": "The provided email is invalid, please check your details",
+    "missing-password": "Password is empty, please provide it",
+    "invalid-credential": "Invalid credentials, please check your details",
+    "network-request-failed":
+      "Network error, please check your internet connection",
   };
 
   const notify = (msg) => toast(msg);
@@ -33,7 +32,6 @@ export default function Login() {
           password,
         }
       );
-      console.log("Response", response);
       return response;
     } catch (error) {
       console.log("Error", error.response.data.error);
@@ -41,71 +39,72 @@ export default function Login() {
       throw error;
     }
   };
+
   const handleLogin = async () => {
     try {
       const response = await startLogin();
       const { access } = response.data;
       localStorage.setItem("accessToken", access);
       setUser(response.data.user);
-      toast.success("Login exitoso 👍");
+      toast.success("Login successful 👍");
       navigate("/products");
     } catch (error) {
       console.log("Error", error);
-      toast.error("Error al ingresar en cuenta del usuario 🤯");
+      toast.error("Error logging into user account 🤯");
     }
   };
 
   return (
-    <div className="bg-blue-100 min-h-screen">
+    <div className="bg-blue-100 min-h-[calc(100vh-80px)]">
       <Container>
-        <div className="lg:w-2/6 md:w-1/2 bg-gray-400 bg-opacity-50 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-8 md:mt-10 mx-auto">
-          <h2 className="text-dark text-lg font-medium title-font mb-5">
-            Ingrese sus datos de usuario
+        <div className="lg:w-2/6 md:w-1/2 bg-white shadow-lg rounded-lg p-8 flex flex-col md:ml-auto w-full mt-8 md:mt-10 mx-auto">
+          <h2 className="text-gray-800 text-lg font-medium title-font mb-5">
+            Enter Your User Details
           </h2>
           <div className="relative mb-4">
             <label htmlFor="email" className="leading-7 text-sm text-gray-700">
-              Correo electrónico:
+              Email:
             </label>
             <input
               type="email"
               id="email"
               name="email"
-              className="w-full bg-white focus:ring-2 focus:ring-blue-600 rounded border border-gray-600 text-base outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-full bg-white focus:ring-2 focus:ring-blue-500 rounded border border-gray-300 text-base outline-none py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Ej. ejemplo@gmail.com"
+              placeholder="e.g. example@gmail.com"
             />
           </div>
           <div className="relative mb-4">
             <label
               htmlFor="password"
-              className="leading-7 text-sm text-gray-600"
+              className="leading-7 text-sm text-gray-700"
             >
-              Contraseña
+              Password:
             </label>
             <input
               type="password"
               id="password"
               name="password"
-              className="w-full bg-white focus:ring-2 focus:ring-blue-700 rounded border border-gray-600 text-base outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-full bg-white focus:ring-2 focus:ring-blue-500 rounded border border-gray-300 text-base outline-none py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Ej. 8161csda188sd@"
+              placeholder="e.g. 8161csda188sd@"
             />
           </div>
           <button
             className="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg"
             onClick={handleLogin}
           >
-            Iniciar Sesión
+            Log In
           </button>
           <p className="text-xs mt-3">
-            *La contraseña debe ser de al menos 6 caracteres.
+            *Password must be at least 6 characters long.
           </p>
           <p className="text-sm mt-3 text-center">
-            ¿No posees una cuenta? Cree una cuenta nueva{" "}
-            <a href="/register" className="text-blue-500">
-              aquí
+            Don&apos;t have an account? Create a new account{" "}
+            <a href="/register" className="text-blue-500 hover:underline">
+              here
             </a>
           </p>
         </div>
