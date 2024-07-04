@@ -81,7 +81,7 @@ export default function AllProducts() {
       }}
     >
       <div
-        className="absolute top-0 left-0 w-full h-full opacity-20 z-[-1]"
+        className="absolute top-0 left-0 w-full min-h-[calc(100vh-80px)] opacity-20 z-[-1]"
         style={{
           backgroundImage: `url('https://media.istockphoto.com/id/859675534/es/vector/mano-dibuja-la-ropa-de-las-mujeres-ilustraci%C3%B3n-de-vector-sobre-fondo-blanco-patr%C3%B3n.jpg?s=612x612&w=0&k=20&c=iEQkTwdBqtJa0cpYxCN5EUIKtYjc0MEbwqd4y7Wo4bU=')`,
         }}
@@ -93,12 +93,8 @@ export default function AllProducts() {
             <div className="bg-white p-4 rounded-lg shadow">
               {showFilters && (
                 <>
-                  <h3 className="text-lg font-semibold mt-4">
-                    Filters:
-                  </h3>
-                  <h4 className="text-md font-semibold mt-3">
-                    Price Range:
-                  </h4>
+                  <h3 className="text-lg font-semibold mt-4">Filters:</h3>
+                  <h4 className="text-md font-semibold mt-3">Price Range:</h4>
                   <Slider
                     getAriaLabel={() => "Price range"}
                     value={price}
@@ -122,27 +118,29 @@ export default function AllProducts() {
                       {category}
                     </button>
                   ))}
-                  <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-                    onClick={handleFilter}
-                  >
-                    Apply Filter
-                  </button>
-                </>
-              )}
-              {currentUser?.is_admin && (
-                <>
-                  <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-                    onClick={toggleModal}
-                  >
-                    Add Product
-                  </button>
-                  <AddProductModal
-                    isOpen={showModal}
-                    onClose={toggleModal}
-                    onAddProduct={handleAddProduct}
-                  />
+                  <div className="flex flex-col">
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+                      onClick={handleFilter}
+                    >
+                      Apply Filter
+                    </button>
+                    {currentUser?.is_admin && (
+                      <>
+                        <button
+                          className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+                          onClick={toggleModal}
+                        >
+                          Add Product
+                        </button>
+                        <AddProductModal
+                          isOpen={showModal}
+                          onClose={toggleModal}
+                          onAddProduct={handleAddProduct}
+                        />
+                      </>
+                    )}
+                  </div>
                 </>
               )}
             </div>
