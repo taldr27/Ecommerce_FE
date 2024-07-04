@@ -84,14 +84,14 @@ export default function ListProducts({ products, removeProduct }) {
           <>
             <li className="flex justify-between gap-x-6 py-5">
               <p className="font-bold text-lg">
-                No hay productos en el carrito
+                There are no products in the cart
               </p>
             </li>
             <button
               onClick={() => navigate("/products")}
               className="bg-blue-500 text-white py-2 px-4 rounded-lg"
             >
-              Comprar mas productos
+              Buy more products
             </button>
           </>
         )}

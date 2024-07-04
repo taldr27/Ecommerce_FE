@@ -22,9 +22,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    console.log("Selected file:", file);
     const updatedFormData = { ...formData, image: file };
-    console.log("Updated FormData:", updatedFormData);
     setFormData(updatedFormData);
   };
 
@@ -133,7 +131,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 ${
+      className={`fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 overflow-auto ${
         isOpen ? "" : "hidden"
       }`}
     >
@@ -199,7 +197,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
             </label>
             <input type="file" accept="image/*" onChange={handleImageUpload} />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 flex flex-wrap gap-3">
             {colorOptions.map((color, index) => (
               <div key={index}>
                 <label>
@@ -245,7 +243,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
               onChange={handleInputChange}
             ></textarea>
           </div>
-          <div className="mb-4">
+          <div className="mb-4 flex flex-wrap gap-3">
             {categoryOptions.map((category, index) => (
               <div key={index}>
                 <label>

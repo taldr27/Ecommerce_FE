@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { CartContext } from "../context/cartContext";
 import ProductsSlice from "../components/ProductsSlice";
 import useData from "../hooks/useAxios";
 import Container from "../components/Container";

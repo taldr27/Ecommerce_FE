@@ -3,7 +3,6 @@ import { CartContext } from "../context/cartContext";
 import { useParams } from "react-router-dom";
 import useData from "../hooks/useAxios";
 import Container from "../components/Container";
-import ReactImageMagnifier from "simple-image-magnifier/react";
 import { ToastContainer, toast } from "react-toastify";
 import ProductImageZoom from "../components/ProductImageZoom";
 
@@ -25,7 +24,7 @@ export default function ProductDetail() {
   };
 
   if (loading) {
-    return <p className="text-center mt-4">Cargando...</p>;
+    return <p className="text-center mt-4">Loading...</p>;
   }
 
   if (error) {

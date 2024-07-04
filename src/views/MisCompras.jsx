@@ -44,7 +44,7 @@ const MisCompras = () => {
               </div>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-2">Detalles:</h3>
+              <h3 className="text-lg font-semibold mb-2">Details:</h3>
               <ul className="space-y-4">
                 {sale.sale_details.map((detail) => (
                   <li
@@ -59,14 +59,14 @@ const MisCompras = () => {
                       />
                       <div>
                         <p className="font-medium">
-                          Producto: {detail.product.name}
+                          Product: {detail.product.name}
                         </p>
-                        <p>Cantidad: {detail.quantity}</p>
+                        <p>Quantity: {detail.quantity}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <p>
-                        Precio:{" "}
+                        Price:{" "}
                         <span className="font-medium text-green-600">
                           ${detail.price}
                         </span>

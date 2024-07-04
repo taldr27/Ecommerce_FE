@@ -5,7 +5,9 @@ const Ventas = () => {
 
   const fetchSales = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_ENDPOINT_BASE}/sales/all`);
+      const response = await fetch(
+        `${import.meta.env.VITE_ENDPOINT_BASE}/sales/all`
+      );
       const data = await response.json();
       setSales(data);
     } catch (error) {
@@ -19,7 +21,7 @@ const Ventas = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-extrabold mb-8 text-center">Ventas</h1>
+      <h1 className="text-3xl font-extrabold mb-8 text-center">Sales</h1>
       {sales.length > 0 ? (
         sales.map((sale) => (
           <div
@@ -28,7 +30,7 @@ const Ventas = () => {
           >
             <div className="mb-4 flex justify-between items-center">
               <div>
-                <h2 className="text-xl font-semibold">Venta #{sale.id}</h2>
+                <h2 className="text-xl font-semibold">Sale #{sale.id}</h2>
                 <p className="text-gray-600">
                   {new Date(sale.created_at).toLocaleDateString()}
                 </p>
@@ -40,7 +42,7 @@ const Ventas = () => {
               </div>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-2">Detalles:</h3>
+              <h3 className="text-lg font-semibold mb-2">Details:</h3>
               <ul className="space-y-4">
                 {sale.sale_details.map((detail) => (
                   <li
@@ -55,14 +57,14 @@ const Ventas = () => {
                       />
                       <div>
                         <p className="font-medium">
-                          Producto: {detail.product.name}
+                          Product: {detail.product.name}
                         </p>
-                        <p>Descripción: {detail.product.description}</p>
-                        <p>Precio: ${detail.price}</p>
-                        <p>Cantidad: {detail.quantity}</p>
-                        <p>Categoría: {detail.product.category.join(", ")}</p>
+                        <p>Description: {detail.product.description}</p>
+                        <p>Price: ${detail.price}</p>
+                        <p>Quantity: {detail.quantity}</p>
+                        <p>Category: {detail.product.category.join(", ")}</p>
                         <p>Color: {detail.product.color.join(", ")}</p>
-                        <p>Usuario ID: {sale.user_id}</p>
+                        <p>User ID: {sale.user_id}</p>
                       </div>
                     </div>
                     <div className="text-right">
@@ -80,7 +82,7 @@ const Ventas = () => {
           </div>
         ))
       ) : (
-        <p className="text-center text-gray-500">No hay ventas registradas.</p>
+        <p className="text-center text-gray-500">There are no sales.</p>
       )}
     </div>
   );
