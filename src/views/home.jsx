@@ -6,11 +6,9 @@ import Carousel from "../components/Carousel";
 import Footer from "../components/Footer";
 
 export default function Home() {
-  const { data, error, isLoading } = useData(
-    `http://127.0.0.1:8000/api/products/all`
+  const { data, loading } = useData(
+    `${import.meta.env.VITE_ENDPOINT_BASE}/products/all`
   );
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
   return (
     <>
       <Container>
@@ -29,7 +27,7 @@ export default function Home() {
         ></div>
         <Carousel />
         <Categories />
-        <ProductsSlice data={data.slice(0, 5)} />
+        <ProductsSlice data={data.slice(0, 5)} isLoading={loading} />
       </Container>
       <Footer />
     </>

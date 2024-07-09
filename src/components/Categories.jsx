@@ -7,7 +7,7 @@ export default function Categories() {
         <h2 className="text-2xl title-font font-medium mb-4">Categories</h2>
         <div className="flex flex-wrap -m-4">
           <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-            <Link to="/products">
+            <Link to={{ pathname: "/products", search: "?search=men" }}>
               <div className="block relative h-48 rounded overflow-hidden">
                 <img
                   alt="Men"
@@ -24,7 +24,7 @@ export default function Categories() {
             </div>
           </div>
           <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-            <Link to="/products">
+            <Link to={{ pathname: "/products", search: "?search=women" }}>
               <div className="block relative h-48 rounded overflow-hidden">
                 <img
                   alt="Women"
@@ -43,7 +43,7 @@ export default function Categories() {
             </div>
           </div>
           <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-            <Link to="/products">
+            <Link to={{ pathname: "/products", search: "?search=accessories" }}>
               <div className="block relative h-48 rounded overflow-hidden">
                 <img
                   alt="Accessories"
@@ -62,7 +62,7 @@ export default function Categories() {
             </div>
           </div>
           <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-            <Link to="/products">
+            <Link to={{ pathname: "/products", search: "?search=sports" }}>
               <div className="block relative h-48 rounded overflow-hidden">
                 <img
                   alt="Deporte"

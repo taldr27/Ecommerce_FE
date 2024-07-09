@@ -6,17 +6,9 @@ export default function ProductsSlice({
   data,
   colums = 4,
   showMoreLink = true,
+  isLoading,
 }) {
   const location = useLocation();
-  /*const {data, error, isLoading} = useData (`${import.meta.env.VITE_ENDPOINT_BASE}/productos`);
-  if(isLoading){
-    return <p>Cargando...</p>
-  }
-
-  if(error){
-    return <p>Error: {error}</p>
-  }
-  */
   return (
     <section className="container mx-auto p-4">
       <div className="mb-3 flex justify-between items-end">
@@ -26,9 +18,11 @@ export default function ProductsSlice({
             <h2 className="text-2xl title-font font-medium border-b-2 border-blue-500">
               Selected Products
             </h2>
-            <Link to="/products" className="text-gray-500 font-semibold">
-              View More<span className="text-blue-500">{" > "}</span>
-            </Link>
+            {data.length > 0 && (
+              <Link to="/products" className="text-gray-500 font-semibold">
+                View More<span className="text-blue-500">{" > "}</span>
+              </Link>
+            )}
           </>
         )}
       </div>
