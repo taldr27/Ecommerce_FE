@@ -1,18 +1,15 @@
-import {Navigate} from 'react-router-dom'
-import { useContext } from 'react'
-import { AuthContext } from '../context/authContext'
+import { Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
 
-export default function ProtectedRoute({children}) {
-    
-    const { user } = useContext(AuthContext);
+export default function ProtectedRoute({ children }) {
+  const { user } = useContext(AuthContext);
 
-    console.log("ProtectedRoute", user)
+  console.log("protected", user);
 
-    if(user){
-    //si estoy logueado me devolverla el JSX (html, componente) que este dentro de ProtectedRoute
+  if (user) {
     return children;
-  }else{
-    //si no estoy logueado me devuelvo a la pagina de login, gracias al componente Navigate
+  } else {
     return <Navigate to="/login" />;
   }
 }

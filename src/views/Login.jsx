@@ -26,7 +26,7 @@ export default function Login() {
   const startLogin = async () => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/user/login",
+        `${import.meta.env.VITE_ENDPOINT_BASE}/user/login`,
         {
           email,
           password,

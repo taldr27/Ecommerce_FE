@@ -13,11 +13,14 @@ const AuthContextProvider = ({ children }) => {
         const storedAccessToken = localStorage.getItem("accessToken");
         if (storedAccessToken) {
           setAccessToken(storedAccessToken);
-          const response = await axios.get("http://127.0.0.1:8000/api/user/check-auth/", {
-            headers: {
-              Authorization: `Bearer ${storedAccessToken}`
+          const response = await axios.get(
+            `${import.meta.env.VITE_ENDPOINT_BASE}/user/check-auth/`,
+            {
+              headers: {
+                Authorization: `Bearer ${storedAccessToken}`,
+              },
             }
-          });
+          );
           setUser(response.data);
         } else {
           setUser(null);
@@ -28,7 +31,7 @@ const AuthContextProvider = ({ children }) => {
     };
 
     checkAuthState();
-  }, []);
+  }, [accessToken]);
 
   const updateUser = (userData) => {
     setUser(userData);

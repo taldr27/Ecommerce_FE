@@ -18,7 +18,7 @@ export default function Register() {
   const startRegister = async () => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/user/register",
+        `${import.meta.env.VITE_ENDPOINT_BASE}/user/register`,
         {
           email,
           password,

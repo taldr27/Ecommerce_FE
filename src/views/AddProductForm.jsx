@@ -31,7 +31,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
       const formData = new FormData();
       formData.append("image", file);
       const response = await fetch(
-        "http://127.0.0.1:8000/api/products/upload-image",
+        `${import.meta.env.VITE_ENDPOINT_BASE}/products/upload-image`,
         {
           method: "POST",
           body: formData,
@@ -61,7 +61,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
             : updatedFormData.review;
         updatedFormData.review = reviewArray;
         const response = await fetch(
-          "http://127.0.0.1:8000/api/products/create",
+          `${import.meta.VITE_ENDPOINT_BASE}/products/create`,
           {
             method: "POST",
             headers: {
