@@ -33,8 +33,22 @@ export default function App() {
               />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/mis-compras" element={<MisCompras />} />
-              <Route path="/ventas" element={<Ventas />} />
+              <Route
+                path="/mis-compras"
+                element={
+                  <ProtectedRoute>
+                    <MisCompras />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/sales"
+                element={
+                  <ProtectedRoute>
+                    <Ventas />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </div>
         </CartContextProvider>

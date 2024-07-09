@@ -8,6 +8,7 @@ const AuthContextProvider = ({ children }) => {
     localStorage.getItem("accessToken")
   );
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("accessToken");
@@ -28,15 +29,16 @@ const AuthContextProvider = ({ children }) => {
         }
       } catch (error) {
         setUser(null);
+      } finally {
+        setLoading(false);
       }
     };
-
-    if (storedAccessToken) {
-      checkAuthState();
-    } else {
-      setUser(null);
-    }
+    checkAuthState();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   const updateUser = (userData) => {
     setUser(userData);

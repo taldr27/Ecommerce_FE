@@ -105,7 +105,7 @@ export default function AllProducts() {
       }}
     >
       <div
-        className="absolute top-0 left-0 w-full min-h-[calc(100vh-80px)] opacity-20 z-[-1]"
+        className="absolute top-0 left-0 w-full min-h-[calc(100vh-80px)] h-full opacity-20 z-[-1]"
         style={{
           backgroundImage: `url('https://media.istockphoto.com/id/859675534/es/vector/mano-dibuja-la-ropa-de-las-mujeres-ilustraci%C3%B3n-de-vector-sobre-fondo-blanco-patr%C3%B3n.jpg?s=612x612&w=0&k=20&c=iEQkTwdBqtJa0cpYxCN5EUIKtYjc0MEbwqd4y7Wo4bU=')`,
         }}

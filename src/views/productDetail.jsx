@@ -1,16 +1,19 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../context/cartContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useData from "../hooks/useAxios";
 import Container from "../components/Container";
 import { ToastContainer, toast } from "react-toastify";
 import ProductImageZoom from "../components/ProductImageZoom";
+import { AuthContext } from "../context/authContext";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const { data, error, loading } = useData(
     `${import.meta.env.VITE_ENDPOINT_BASE}/products/detail/${id}`
   );
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [colorSelected, setColorSelected] = useState(0);
 
@@ -19,8 +22,12 @@ export default function ProductDetail() {
   const notify = () => toast(`${data.name} added to the cart 🛍️`);
 
   const handleAddProductToCart = (product) => {
-    addProductToCart(product);
-    notify();
+    if (user) {
+      addProductToCart(product);
+      notify();
+    } else {
+      navigate("/login");
+    }
   };
 
   if (loading) {
