@@ -6,32 +6,6 @@ const CartContext = createContext();
 const CartContextProvider = (props) => {
   const [cart, setCart] = useState([]);
 
-  const removeFromCart = (productId) => {
-    setCart(cart.filter((item) => item.id !== productId));
-  };
-
-  const clearCart = () => {
-    setCart([]);
-    removeStorage("cart");
-  };
-
-  const addProductToCart = (product) => {
-    const existsIndex = cart.findIndex((prod) => prod.id === product.id);
-    if (existsIndex === -1) {
-      product.cantidad = 1;
-      setCart([...cart, product]);
-    } else {
-      if (Number(product.stock) === cart[existsIndex].cantidad) {
-        return;
-      }
-      const copyCart = [...cart];
-      copyCart[existsIndex].cantidad++;
-      setCart(copyCart);
-    }
-  };
-
-  const totalCart = cart.reduce((acc, prod) => acc + prod.cantidad, 0);
-
   useEffect(() => {
     const storageCart = getStorage("cart");
     if (storageCart) {
@@ -42,8 +16,38 @@ const CartContextProvider = (props) => {
   useEffect(() => {
     if (cart.length > 0) {
       saveStorage("cart", cart);
+    } else {
+      removeStorage("cart");
     }
   }, [cart]);
+
+  const removeFromCart = (productId) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  };
+
+  const clearCart = () => {
+    setCart([]);
+    removeStorage("cart");
+  };
+
+  const addProductToCart = (product) => {
+    setCart((prevCart) => {
+      const existsIndex = prevCart.findIndex((prod) => prod.id === product.id);
+      if (existsIndex === -1) {
+        product.cantidad = 1;
+        return [...prevCart, product];
+      } else {
+        if (Number(product.stock) === prevCart[existsIndex].cantidad) {
+          return prevCart;
+        }
+        const copyCart = [...prevCart];
+        copyCart[existsIndex].cantidad++;
+        return copyCart;
+      }
+    });
+  };
+
+  const totalCart = cart.reduce((acc, prod) => acc + prod.cantidad, 0);
 
   const createSale = (totalCompra, userId) => {
     const saleDetails = cart.map((product) => ({
@@ -83,5 +87,6 @@ const CartContextProvider = (props) => {
     </CartContext.Provider>
   );
 };
+
 
 export { CartContext, CartContextProvider };

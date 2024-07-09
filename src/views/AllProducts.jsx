@@ -28,7 +28,6 @@ export default function AllProducts() {
     Accessories: false,
     Sports: false,
   });
-  const [showFilters, setShowFilters] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -36,7 +35,6 @@ export default function AllProducts() {
   }, [user]);
 
   useEffect(() => {
-    console.log("effect", data)
     setProducts(data);
   }, [data]);
 
@@ -92,9 +90,9 @@ export default function AllProducts() {
 
   let content;
   if (loading) {
-    content = <p>Loading...</p>;
-  } else if (error && data.length === 0) {
-    content = <p>{error.message}</p>;
+    content = <p className="text-3xl">Loading...</p>;
+  } else if (data.length === 0) {
+    content = <p className="text-3xl">No products found!</p>;
   } else {
     content = <ProductsSlice data={products} columns={3} />;
   }
@@ -113,7 +111,14 @@ export default function AllProducts() {
         }}
       ></div>
       <Container>
-        <h2 className="text-3xl font-bold pb-3">All Products</h2>
+        <h2 className="text-4xl pb-3">
+          {`${
+            categoryValue
+              ? categoryValue.charAt(0).toUpperCase() + categoryValue.slice(1)
+              : "All"
+          }`}{" "}
+          Products
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
           <div className="col-span-12 md:col-span-3">
             {categoryValue ? null : (

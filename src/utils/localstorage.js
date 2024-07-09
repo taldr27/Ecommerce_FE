@@ -1,18 +1,15 @@
 const getStorage = (name) => {
-    const data = localStorage.getItem(name);
-    const dataObj = JSON.parse(data);
-    return dataObj;
-}
+  const data = localStorage.getItem(name);
+  return data ? JSON.parse(data) : null;
+};
 
 const saveStorage = (name, data) => {
-    const dataString = JSON.stringify(data);
-    localStorage.setItem(name, dataString);
-    return true;
-}
+  const dataString = JSON.stringify(data);
+  localStorage.setItem(name, dataString);
+};
 
 const removeStorage = (name) => {
-    localStorage.removeItem(name);
-    return true;
-}
+  localStorage.removeItem(name);
+};
 
 export { getStorage, saveStorage, removeStorage };

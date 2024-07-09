@@ -23,7 +23,7 @@ const MisCompras = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-extrabold mb-8 text-center">Mis Compras</h1>
+      <h1 className="text-3xl font-extrabold mb-8 text-center">My Purchases</h1>
       {sales.length > 0 ? (
         sales.map((sale) => (
           <div
@@ -32,7 +32,7 @@ const MisCompras = () => {
           >
             <div className="mb-4 flex justify-between items-center">
               <div>
-                <h2 className="text-xl font-semibold">Compra #{sale.id}</h2>
+                <h2 className="text-xl font-semibold">Buy #{sale.id}</h2>
                 <p className="text-gray-600">
                   {new Date(sale.created_at).toLocaleDateString()}
                 </p>
@@ -85,7 +85,7 @@ const MisCompras = () => {
           </div>
         ))
       ) : (
-        <p className="text-center text-gray-500">No has realizado compras.</p>
+        <p className="text-center text-gray-500">You haven&apos;t bought anything yet.</p>
       )}
     </div>
   );

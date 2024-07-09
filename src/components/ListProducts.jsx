@@ -75,7 +75,7 @@ export default function ListProducts({ products, removeProduct }) {
                   onClick={() => handleRemoveProduct(product.id)}
                   className="mt-2 text-sm leading-5 text-red-500"
                 >
-                  Eliminar
+                  Delete
                 </button>
               </div>
             </li>
@@ -84,7 +84,7 @@ export default function ListProducts({ products, removeProduct }) {
           <>
             <li className="flex justify-between gap-x-6 py-5">
               <p className="font-bold text-lg">
-                There are no products in the cart
+                You don&apos;t have any products in your cart yet.
               </p>
             </li>
             <button

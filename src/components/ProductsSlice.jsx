@@ -26,13 +26,17 @@ export default function ProductsSlice({
           </>
         )}
       </div>
-      <div className="flex gap-6 flex-wrap justify-center">
-        {data.map((product) => (
-          <div key={product.id}>
-            <ProductCard product={product} />
-          </div>
-        ))}
-      </div>
+      {data.length > 0 ? (
+        <div className="flex gap-6 flex-wrap justify-center">
+          {data.map((product) => (
+            <div key={product.id}>
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-3xl text-center">No products found!</p>
+      )}
     </section>
   );
 }
