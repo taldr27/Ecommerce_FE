@@ -4,15 +4,16 @@ import axios from "axios";
 const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  const [accessToken, setAccessToken] = useState(null);
+  const [accessToken, setAccessToken] = useState(
+    localStorage.getItem("accessToken")
+  );
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const storedAccessToken = localStorage.getItem("accessToken");
     const checkAuthState = async () => {
       try {
-        const storedAccessToken = localStorage.getItem("accessToken");
         if (storedAccessToken) {
-          setAccessToken(storedAccessToken);
           const response = await axios.get(
             `${import.meta.env.VITE_ENDPOINT_BASE}/user/check-auth/`,
             {
@@ -30,8 +31,12 @@ const AuthContextProvider = ({ children }) => {
       }
     };
 
-    checkAuthState();
-  }, [accessToken]);
+    if (storedAccessToken) {
+      checkAuthState();
+    } else {
+      setUser(null);
+    }
+  }, []);
 
   const updateUser = (userData) => {
     setUser(userData);

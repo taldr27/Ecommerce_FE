@@ -63,7 +63,6 @@ const Ventas = () => {
                         <p>Price: ${detail.price}</p>
                         <p>Quantity: {detail.quantity}</p>
                         <p>Category: {detail.product.category.join(", ")}</p>
-                        <p>Color: {detail.product.color.join(", ")}</p>
                         <p>User ID: {sale.user_id}</p>
                       </div>
                     </div>

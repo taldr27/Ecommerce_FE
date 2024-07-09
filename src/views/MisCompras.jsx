@@ -8,7 +8,7 @@ const MisCompras = () => {
   const fetchSales = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_ENDPOINT_BASE}/sales/user/${user.id}`
+        `${import.meta.env.VITE_ENDPOINT_BASE}/sales/user/${user.user_id}`
       );
       const data = await response.json();
       setSales(data);
@@ -18,8 +18,14 @@ const MisCompras = () => {
   };
 
   useEffect(() => {
-    fetchSales();
+    if (user) {
+      fetchSales();
+    }
   }, [user]);
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container mx-auto p-6">
@@ -85,7 +91,9 @@ const MisCompras = () => {
           </div>
         ))
       ) : (
-        <p className="text-center text-gray-500">You haven&apos;t bought anything yet.</p>
+        <p className="text-center text-gray-500">
+          You haven&apos;t bought anything yet.
+        </p>
       )}
     </div>
   );

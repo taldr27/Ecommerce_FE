@@ -12,7 +12,7 @@ export default function ListProducts({ products, removeProduct }) {
   );
 
   const user = useContext(AuthContext);
-  const userId = user.user.id;
+  const userId = user.user.user_id;
 
   const handleRemoveProduct = (productId) => {
     removeProduct(productId);
@@ -24,15 +24,15 @@ export default function ListProducts({ products, removeProduct }) {
 
   const handleCheckout = () => {
     createSale(totalCompra, userId)
-        .then((data) => {
-            console.log('Sale created:', data);
-            setShowPopup(true);
-            clearCart();
-        })
-        .catch((error) => {
-            console.error('Error creating sale:', error);
-        });
-};
+      .then((data) => {
+        console.log("Sale created:", data);
+        setShowPopup(true);
+        clearCart();
+      })
+      .catch((error) => {
+        console.error("Error creating sale:", error);
+      });
+  };
 
   const closePopup = () => {
     setShowPopup(false);

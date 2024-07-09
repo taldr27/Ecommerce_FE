@@ -53,13 +53,15 @@ const CartContextProvider = (props) => {
     const saleDetails = cart.map((product) => ({
       quantity: product.cantidad,
       product_id: product.id,
-      price: product.price.toString(),
-      subtotal: (product.price * product.cantidad).toString(),
+      price: product.price,
+      subtotal: product.price * product.cantidad,
     }));
+
+    console.log(userId, "userrrsaads")
 
     const saleData = {
       sale_details: saleDetails,
-      total_price: totalCompra.toString(),
+      total_price: totalCompra,
       user_id: userId,
     };
 
@@ -87,6 +89,5 @@ const CartContextProvider = (props) => {
     </CartContext.Provider>
   );
 };
-
 
 export { CartContext, CartContextProvider };
