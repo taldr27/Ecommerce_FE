@@ -68,7 +68,7 @@ export default function ProductDetail() {
                 Category:{" "}
                 <b className="font-semibold text-black">
                   {data?.category?.map((category, id) => (
-                    <span key={id}>{category} </span>
+                    <span key={id}>#{category} </span>
                   ))}
                 </b>
               </span>
@@ -77,7 +77,7 @@ export default function ProductDetail() {
               Description:
             </h3>
             <p className="text-black-600 mb-4">{data.description}</p>
-            <p className="text-blue-600 text-xl mb-4">Price: ${data.price}</p>
+            <p className="text-blue-600 text-xl mb-4">Price: S/ {data.price}</p>
             <p className="text-gray-500 text-lg mb-4">Stock: {data.stock}</p>
             <h3 className="font-semibold text-lg text-dark mb-2">Color:</h3>
             {data?.color?.length > 0 ? (

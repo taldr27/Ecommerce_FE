@@ -45,7 +45,7 @@ const MisCompras = () => {
               </div>
               <div className="text-right">
                 <p className="text-lg font-bold text-blue-600">
-                  Total: ${sale.total_price}
+                  Total: S/ {sale.total_price}
                 </p>
               </div>
             </div>

@@ -36,7 +36,7 @@ export default function Navbar() {
                   <NavLink to="/products" text="Products" />
                   {user && <NavLink to="/mis-compras" text="My Purchases" />}
                   {user?.is_admin && (
-                    <NavLink to="/ventas" text="View All Sales" />
+                    <NavLink to="/sales" text="View All Sales" />
                   )}
                   {user?.is_admin && (
                     <span className="text-gray-300">You are an admin!</span>
@@ -118,7 +118,7 @@ export default function Navbar() {
               {!user && <NavLink to="/register" text="Register" />}
               {!user && <NavLink to="/login" text="Login" />}
               {user && <NavLink to="/mis-compras" text="My Purchases" />}
-              {user?.is_admin && <NavLink to="/ventas" text="View All Sales" />}
+              {user?.is_admin && <NavLink to="/sales" text="View All Sales" />}
               {user?.is_admin && (
                 <span className="text-white block rounded-md px-3 py-2 text-sm font-medium">
                   You are an admin!
