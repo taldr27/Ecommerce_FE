@@ -37,7 +37,7 @@ const AuthContextProvider = ({ children }) => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loadingssss...</div>;
   }
 
   const updateUser = (userData) => {

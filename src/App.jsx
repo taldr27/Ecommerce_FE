@@ -60,8 +60,8 @@ export default function App() {
             </div>
           </div>
         </CartContextProvider>
-      </AuthContextProvider>
       {shouldHideFooter ? null : <Footer />}
+      </AuthContextProvider>
     </div>
   );
 }
