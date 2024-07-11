@@ -21,7 +21,7 @@ export default function Footer() {
           <p className="mt-4 text-sm text-gray-400 leading-relaxed">
             Discover the latest trends in fashion and style at All-Fashion
             Market. Explore our wide selection of clothing, accessories, and
-            more to express your unique style. With us, you'll find everything
+            more to express your unique style. With us, you&apos;ll find everything
             you need to look fashionable for any occasion. Join our community of
             fashion enthusiasts today!
           </p>

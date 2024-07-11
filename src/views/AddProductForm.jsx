@@ -61,7 +61,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
             : updatedFormData.review;
         updatedFormData.review = reviewArray;
         const response = await fetch(
-          `${import.meta.VITE_ENDPOINT_BASE}/products/create`,
+          `${import.meta.env.VITE_ENDPOINT_BASE}/products/create`,
           {
             method: "POST",
             headers: {
