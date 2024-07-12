@@ -6,7 +6,6 @@ export default function ProductsSlice({
   data,
   colums = 4,
   showMoreLink = true,
-  isLoading,
 }) {
   const location = useLocation();
   return (

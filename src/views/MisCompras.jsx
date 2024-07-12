@@ -29,7 +29,7 @@ const MisCompras = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-extrabold mb-8 text-center">My Purchases</h1>
+      <h2 className="text-3xl font-extrabold mb-8 text-center">My Purchases</h2>
       {sales.length > 0 ? (
         sales.map((sale) => (
           <div

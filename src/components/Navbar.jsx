@@ -1,5 +1,5 @@
 import { useContext, Fragment, useState } from "react";
-import { Link, NavLink as RouterLink, useNavigate } from "react-router-dom";
+import { Link, NavLink as RouterNavLink, useNavigate } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import Badge from "@mui/material/Badge";
 import { AuthContext } from "../context/authContext";
@@ -134,12 +134,16 @@ export default function Navbar() {
 
 function NavLink({ to, text, children }) {
   return (
-    <RouterLink
+    <RouterNavLink
       to={to}
-      className="text-white hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-sm font-medium"
+      className={({ isActive }) => 
+        `text-white block rounded-md px-3 py-2 text-sm font-medium ${
+          isActive ? "bg-gray-800" : ''
+        } hover:bg-gray-700`
+      }
     >
       {text}
       {children}
-    </RouterLink>
+    </RouterNavLink>
   );
 }

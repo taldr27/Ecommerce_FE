@@ -25,7 +25,7 @@ export default function CheckOut() {
         //   height: "100%",
         // }}
       ></div>
-      <h1>CheckOut</h1>
+      <h2>CheckOut</h2>
       <div className="grid grid-cols-1 md:grid-cols-2"></div>
       <div>
         <ListProducts products={cart} removeProduct={handleRemoveFromCart} />
