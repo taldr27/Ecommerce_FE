@@ -19,7 +19,7 @@ export default function AllProducts() {
     ? `${endpointBase}?search=${categoryValue}`
     : endpointBase;
 
-  const { data, error, loading } = useData(url);
+  const { data, loading } = useData(url);
   const [price, setPrice] = useState([1, 10000]);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState({
@@ -71,18 +71,18 @@ export default function AllProducts() {
     }));
   };
 
-  const handleFilter = () => {
-    const categoriesSelected = Object.entries(categories)
-      .filter(([, isSelected]) => isSelected)
-      .map(([category]) => category);
+  // const handleFilter = () => {
+  //   const categoriesSelected = Object.entries(categories)
+  //     .filter(([, isSelected]) => isSelected)
+  //     .map(([category]) => category);
 
-    if (categoriesSelected.length === 0) {
-      setProducts(data);
-    } else {
-      const filteredData = filterDataByCategories(data, categoriesSelected);
-      setProducts(filteredData);
-    }
-  };
+  //   if (categoriesSelected.length === 0) {
+  //     setProducts(data);
+  //   } else {
+  //     const filteredData = filterDataByCategories(data, categoriesSelected);
+  //     setProducts(filteredData);
+  //   }
+  // };
 
   const handleAddProduct = (newProduct) => {
     setProducts((prevProducts) => [newProduct, ...prevProducts]);

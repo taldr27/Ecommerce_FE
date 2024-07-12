@@ -1,8 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
 const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
   const colorOptions = ["Red", "Blue", "Green", "Yellow", "Black"];
   const categoryOptions = ["Electronics", "Clothing", "Books", "Toys", "Food"];
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -44,6 +47,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
         throw new Error(data.error);
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error uploading image:", error);
       throw error;
     }
@@ -52,7 +56,21 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (formData.image) {
+      if (
+        !formData.name ||
+        !formData.description ||
+        !formData.price ||
+        !formData.image ||
+        !formData.color.length ||
+        !formData.stock ||
+        !formData.review ||
+        !formData.category.length
+      ) {
+        setError("Please fill all the fields!");
+        setTimeout(() => setError(""), 4000);
+        return;
+      } else if (formData.image) {
+        setLoading(true);
         const imageUrl = await uploadImage(formData.image);
         const updatedFormData = { ...formData, image: imageUrl };
         const reviewArray =
@@ -71,6 +89,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
           }
         );
         if (response.ok) {
+          setLoading(false);
           const newProduct = await response.json();
           onAddProduct(newProduct);
           setFormData({
@@ -85,6 +104,8 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
           });
           onClose();
         } else {
+          setLoading(false);
+          setError("Error adding product. Please try again.", response);
           console.error("Error adding product:", response.statusText);
         }
       }
@@ -129,6 +150,12 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
     }
   };
 
+  if (isOpen) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+
   return (
     <div
       className={`fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 overflow-auto ${
@@ -136,17 +163,20 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
       }`}
     >
       <div
-        className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50 z-0"
-        onClick={onClose}
+        className="modal-overlay absolute top-0 left-0 w-full h-full bg-gray-900 opacity-50 z-0"
+        onClick={() => {
+          onClose();
+          setError("");
+        }}
       ></div>
-      <div className="modal-container bg-white w-96 p-4 rounded shadow-lg z-[1]">
-        <form onSubmit={handleSubmit}>
+      <div className="modal-container bg-white w-11/12 sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 max-w-[525px] rounded shadow-lg z-[1] max-h-[calc(100vh-2.5rem)] overflow-y-auto">
+        <form className="flex flex-col" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="name"
             >
-              Name
+              *Name:
             </label>
             <input
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -162,7 +192,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="description"
             >
-              Description
+              Description*:
             </label>
             <textarea
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -177,7 +207,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="price"
             >
-              Price
+              *Price:
             </label>
             <input
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -185,7 +215,12 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
               type="text"
               name="price"
               value={formData.price}
-              onChange={handleInputChange}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^\d*$/.test(value)) {
+                  handleInputChange(e);
+                }
+              }}
             />
           </div>
           <div className="mb-4">
@@ -193,31 +228,45 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="image"
             >
-              Image
+              *Image:
             </label>
-            <input type="file" accept="image/*" onChange={handleImageUpload} />
+            <input
+              className="max-w-full"
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+            />
           </div>
-          <div className="mb-4 flex flex-wrap gap-3">
-            {colorOptions.map((color, index) => (
-              <div key={index}>
-                <label>
-                  <input
-                    type="checkbox"
-                    value={color}
-                    checked={formData.color.includes(color)}
-                    onChange={handleColorChange}
-                  />
-                  {color}
-                </label>
-              </div>
-            ))}
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="color"
+            >
+              *Color:
+            </label>
+            <div className="flex flex-wrap gap-3">
+              {colorOptions.map((color, index) => (
+                <div key={index}>
+                  <label>
+                    <input
+                      className="mr-1"
+                      type="checkbox"
+                      value={color}
+                      checked={formData.color.includes(color)}
+                      onChange={handleColorChange}
+                    />
+                    {color}
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="stock"
             >
-              Stock
+              *Stock:
             </label>
             <input
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -225,7 +274,12 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
               type="text"
               name="stock"
               value={formData.stock}
-              onChange={handleInputChange}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^\d*$/.test(value)) {
+                  handleInputChange(e);
+                }
+              }}
             />
           </div>
           <div className="mb-4">
@@ -233,7 +287,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="review"
             >
-              Review (one per line)
+              *Review (one per line):
             </label>
             <textarea
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -243,27 +297,40 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
               onChange={handleInputChange}
             ></textarea>
           </div>
-          <div className="mb-4 flex flex-wrap gap-3">
-            {categoryOptions.map((category, index) => (
-              <div key={index}>
-                <label>
-                  <input
-                    type="checkbox"
-                    value={category}
-                    checked={formData.category.includes(category)}
-                    onChange={handleCategoryChange}
-                  />
-                  {category}
-                </label>
-              </div>
-            ))}
+          <div>
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="category"
+            >
+              *Category:
+            </label>
+            <div className="flex flex-wrap gap-3">
+              {categoryOptions.map((category, index) => (
+                <div key={index}>
+                  <label>
+                    <input
+                      className="mr-1"
+                      type="checkbox"
+                      value={category}
+                      checked={formData.category.includes(category)}
+                      onChange={handleCategoryChange}
+                    />
+                    {category}
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            type="submit"
-          >
-            Add Product
-          </button>
+          <p className="text-xs py-1">* Indicates a required field.</p>
+          <div className="flex flex-row-reverse justify-between items-center">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded self-end"
+              type="submit"
+            >
+              {loading ? "Loading..." : "Add Product"}
+            </button>
+            <span className="text-red-500 font-semibold ml-2">{error}</span>
+          </div>
         </form>
       </div>
     </div>
