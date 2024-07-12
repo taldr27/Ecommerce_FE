@@ -45,14 +45,20 @@ export default function Register() {
       navigate("/");
     } catch (error) {
       console.log("Error", error);
-      toast.error("User registration error 🤯");
+      toast.error(`User registration error 🤯 ${error.response.data.error}`);
     }
   };
 
   return (
     <div className="bg-gray-100 min-h-[calc(100vh-80px)]">
       <Container>
-        <div className="flex flex-col md:flex-row justify-center items-center">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleRegister();
+          }}
+          className="flex flex-col md:flex-row justify-center items-center"
+        >
           <div className="lg:w-1/3 md:w-1/2 bg-white shadow-lg rounded-lg p-8 flex flex-col md:mr-4 w-full mt-8 md:mt-10 mx-auto">
             <h2 className="text-gray-800 text-lg font-medium title-font mb-4">
               Register a New Account
@@ -69,6 +75,7 @@ export default function Register() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. John Doe"
+                required
               />
             </div>
             <div className="relative mb-4">
@@ -86,6 +93,7 @@ export default function Register() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="e.g. example@gmail.com"
+                required
               />
             </div>
             <div className="relative mb-4">
@@ -103,6 +111,7 @@ export default function Register() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="e.g. 8161csda188sd@"
+                required
               />
             </div>
             <div className="relative mb-4">
@@ -118,6 +127,7 @@ export default function Register() {
                 className="w-full bg-white focus:ring-2 focus:ring-blue-500 rounded border border-gray-300 text-base outline-none py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 value={documentType}
                 onChange={(e) => setDocumentType(e.target.value)}
+                required
               >
                 <option value="">Select Document Type</option>
                 <option value="DNI">DNI</option>
@@ -133,12 +143,20 @@ export default function Register() {
               </label>
               <input
                 type="text"
+                pattern="[0-9]*"
                 id="documentNumber"
                 name="documentNumber"
                 className="w-full bg-white focus:ring-2 focus:ring-blue-500 rounded border border-gray-300 text-base outline-none py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 value={documentNumber}
-                onChange={(e) => setDocumentNumber(e.target.value)}
+                maxLength={8}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {
+                    setDocumentNumber(value);
+                  }
+                }}
                 placeholder="e.g. 12345678"
+                required
               />
             </div>
             <div className="relative mb-4 flex items-center">
@@ -157,10 +175,7 @@ export default function Register() {
                 onChange={(e) => setIsAdmin(e.target.checked)}
               />
             </div>
-            <button
-              className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg"
-              onClick={handleRegister}
-            >
+            <button className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg">
               Register
             </button>
             <p className="text-xs mt-2">
@@ -182,7 +197,7 @@ export default function Register() {
               </a>
             </p>
           </div>
-        </div>
+        </form>
         <ToastContainer />
       </Container>
     </div>

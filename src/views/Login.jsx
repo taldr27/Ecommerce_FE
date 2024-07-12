@@ -8,20 +8,9 @@ import { AuthContext } from "../context/authContext";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
-
-  const ERRORS = {
-    "user-not-found": "User not found, please check your details",
-    "wrong-password": "Incorrect password, please check it",
-    "invalid-email": "The provided email is invalid, please check your details",
-    "missing-password": "Password is empty, please provide it",
-    "invalid-credential": "Invalid credentials, please check your details",
-    "network-request-failed":
-      "Network error, please check your internet connection",
-  };
-
-  const notify = (msg) => toast(msg);
 
   const startLogin = async () => {
     try {
@@ -32,32 +21,45 @@ export default function Login() {
           password,
         }
       );
+      setIsLoading(false);
       return response;
     } catch (error) {
-      console.log("Error", error.response.data.error);
-      notify(ERRORS[error.response.data.error]);
+      console.log(error, "1111");
+      setIsLoading(false);
       throw error;
     }
   };
 
   const handleLogin = async () => {
     try {
+      setIsLoading(true);
       const response = await startLogin();
       const { access } = response.data;
       localStorage.setItem("accessToken", access);
       setUser(response.data.user);
       toast.success("Login successful 👍");
-      navigate("/products");
+      navigate("/");
     } catch (error) {
-      console.log("Error", error);
-      toast.error("Error logging into user account 🤯");
+      toast.error(
+        `Error logging into user account 🤯 ${error.response.data.error}`
+      );
     }
+  };
+
+  const handleNavigateToRegister = () => {
+    navigate("/register");
   };
 
   return (
     <div className="bg-blue-100 min-h-[calc(100vh-80px)]">
       <Container>
-        <div className="lg:w-2/6 md:w-1/2 bg-white shadow-lg rounded-lg p-8 flex flex-col md:ml-auto w-full mt-8 md:mt-10 mx-auto">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
+          className="lg:w-2/6 md:w-1/2 bg-white shadow-lg rounded-lg p-8 flex flex-col md:ml-auto w-full mt-8 md:mt-10 mx-auto"
+        >
           <h2 className="text-gray-800 text-lg font-medium title-font mb-5">
             Enter Your User Details
           </h2>
@@ -94,20 +96,23 @@ export default function Login() {
           </div>
           <button
             className="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg"
-            onClick={handleLogin}
+            type="submit"
           >
-            Log In
+            {isLoading ? "Processing..." : "Login"}
           </button>
           <p className="text-xs mt-3">
             *Password must be at least 6 characters long.
           </p>
           <p className="text-sm mt-3 text-center">
             Don&apos;t have an account? Create a new account{" "}
-            <a href="/register" className="text-blue-500 hover:underline">
+            <button
+              onClick={handleNavigateToRegister}
+              className="text-blue-500 hover:underline"
+            >
               here
-            </a>
+            </button>
           </p>
-        </div>
+        </form>
         <ToastContainer />
       </Container>
     </div>
