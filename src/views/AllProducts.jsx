@@ -90,7 +90,7 @@ export default function AllProducts() {
 
   let content;
   if (loading) {
-    content = <p className="text-3xl">Loading...</p>;
+    content = <p className="text-4xl">Loading...</p>;
   } else if (data.length === 0) {
     content = <p className="text-3xl">No products found!</p>;
   } else {

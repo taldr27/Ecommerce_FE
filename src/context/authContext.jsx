@@ -37,7 +37,11 @@ const AuthContextProvider = ({ children }) => {
   }, []);
 
   if (loading) {
-    return <div>Loadingssss...</div>;
+    return (
+      <div className="w-full min-h-screen flex justify-center items-center bg-blue-400">
+        <span className="text-4xl text-white">Loading...</span>
+      </div>
+    );
   }
 
   const updateUser = (userData) => {

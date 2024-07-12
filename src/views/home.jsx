@@ -5,7 +5,7 @@ import Categories from "../components/Categories";
 import Carousel from "../components/Carousel";
 
 export default function Home() {
-  const { data, loading } = useData(
+  const { data } = useData(
     `${import.meta.env.VITE_ENDPOINT_BASE}/products/all`
   );
   return (
@@ -25,7 +25,7 @@ export default function Home() {
       ></div>
       <Carousel />
       <Categories />
-      <ProductsSlice data={data.slice(0, 5)} isLoading={loading} />
+      <ProductsSlice data={data.slice(0, 5)} />
     </Container>
   );
 }
