@@ -153,14 +153,14 @@ export default function ListProducts({ products, removeProduct }) {
               <p className="text-lg text-gray-800">Payment Successful</p>
               <div className="flex flex-col">
                 {" "}
-                <a
+                {/* <a
                   href={pdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block"
                 >
                   View Receipt (PDF) (Spanish)
-                </a>
+                </a> */}
                 <button
                   onClick={closePopup}
                   className="mt-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded inline-block"
